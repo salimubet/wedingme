@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Link Undangan - Tiyah & Ubed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        .font-dancing { font-family: 'Dancing Script', cursive; }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        
+        .bg-gradient-wedding {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f3e8ff 100%);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .petal {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f472b6;
+            border-radius: 50%;
+            animation: fall 8s linear infinite;
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-wedding min-h-screen font-poppins">
+    <!-- Falling Petals -->
+    <div id="petals"></div>
+    
+    <!-- Main Container -->
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="text-center animate-fade-in max-w-md w-full">
+            <div class="mb-8 animate-float">
+                <svg class="w-24 h-24 mx-auto text-pink-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            
+    <h1 class="font-dancing text-4xl md:text-6xl text-pink-600 mb-4">Tiyah & Ubed</h1>
+            <p class="text-gray-600 text-lg mb-8">Generator Link Undangan Personal</p>
+            
+            <!-- Link Generator Form -->
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-8">
+                <h2 class="font-dancing text-3xl text-pink-600 mb-6">Buat Link Personal</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2 text-left">Nama Penerima Undangan</label>
+                        <input type="text" id="recipientName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-center" placeholder="Masukkan nama penerima">
+                    </div>
+                    
+                    <button onclick="generatePersonalLink()" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white py-3 px-6 rounded-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-300">
+                        🔗 Generate Link Personal
+                    </button>
+                </div>
+                
+                <!-- Generated Link Result -->
+                <div id="linkResult" class="hidden mt-6">
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <div class="text-gray-700 font-medium mb-3">Link Personal Berhasil Dibuat:</div>
+                        <div id="generatedLink" class="bg-white p-3 rounded border text-sm break-all font-mono mb-4"></div>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="copyLink()" id="copyBtn" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg text-sm transition-all duration-300">
+                                📋 Salin Link
+                            </button>
+                            <button onclick="shareLink()" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-sm transition-all duration-300">
+                                📱 Bagikan
+                            </button>
+                        </div>
+                        
+                        <button onclick="resetForm()" class="w-full mt-3 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg text-sm transition-all duration-300">
+                            🔄 Buat Link Baru
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Preview Link -->
+            <div class="text-center">
+                <a href="index.html" target="_blank" class="inline-flex items-center text-pink-600 hover:text-pink-700 text-sm">
+                    👀 Preview Undangan
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPersonalLink = '';
+        let currentRecipientName = '';
+        
+        // Generate personal link
+        function generatePersonalLink() {
+            const recipientName = document.getElementById('recipientName').value.trim();
+            if (!recipientName) {
+                showMessage('Mohon isi nama penerima terlebih dahulu', 'error');
+                return;
+            }
+            
+            // Create the personal link (assuming index.html is in the same directory)
+            const baseURL = window.location.origin + window.location.pathname.replace('generator.html', 'index.html');
+            const personalLink = `${baseURL}?to=${encodeURIComponent(recipientName)}`;
+            
+            currentPersonalLink = personalLink;
+            currentRecipientName = recipientName;
+            
+            document.getElementById('generatedLink').textContent = personalLink;
+            document.getElementById('linkResult').classList.remove('hidden');
+            
+            // Auto copy to clipboard
+            navigator.clipboard.writeText(personalLink).then(() => {
+                showMessage(`Link untuk ${recipientName} berhasil dibuat dan disalin!`);
+            }).catch(() => {
+                showMessage(`Link untuk ${recipientName} berhasil dibuat!`);
+            });
+        }
+        
+        // Copy link to clipboard
+        function copyLink() {
+            navigator.clipboard.writeText(currentPersonalLink).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '✅ Tersalin!';
+                copyBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
+                copyBtn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('bg-green-600');
+                    copyBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+                }, 2000);
+                
+                showMessage('Link berhasil disalin ke clipboard!');
+            }).catch(() => {
+                showMessage('Gagal menyalin link', 'error');
+            });
+        }
+        
+        // Share link
+        function shareLink() {
+            const shareText = `🌸 Undangan Pernikahan 🌸\n\nKepada ${currentRecipientName},\nAnda diundang ke pernikahan Tiyah & Ubed\n\nSabtu, 13 Desember 2025\n🕌 Akad: 08:00 WIB\n🎉 Resepsi: 10:00 WIB\n\nKehadiran Anda sangat berarti bagi kami 💕\n\n${currentPersonalLink}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Undangan Pernikahan Tiyah & Ubed',
+                    text: shareText,
+                    url: currentPersonalLink
+                }).catch(() => {
+                    showShareDialog();
+                });
+            } else {
+                showShareDialog();
+            }
+        }
+        
+        // Show share dialog
+        function showShareDialog() {
+            const shareText = `🌸 Undangan Pernikahan 🌸\n\nKepada ${currentRecipientName},\nAnda diundang ke pernikahan Tiyah & Ubed\n\nSabtu, 13 Desember 2025\n🕌 Akad: 08:00 WIB\n🎉 Resepsi: 10:00 WIB\n\nKehadiran Anda sangat berarti bagi kami 💕\n\n${currentPersonalLink}`;
+            
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(currentPersonalLink)}&text=${encodeURIComponent(`Kepada ${currentRecipientName}, Anda diundang ke pernikahan Tiyah & Ubed`)}`;
+            
+            const shareDialog = document.createElement('div');
+            shareDialog.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            shareDialog.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 max-w-sm w-full animate-fade-in">
+                    <h3 class="text-lg font-medium text-gray-800 mb-4 text-center">📱 Bagikan ke ${currentRecipientName}</h3>
+                    <div class="space-y-3">
+                        <button onclick="window.open('${whatsappUrl}', '_blank', 'noopener,noreferrer')" class="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2">
+                            <span>💬</span>
+                            <span>WhatsApp</span>
+                        </button>
+                        <button onclick="window.open('${telegramUrl}', '_blank', 'noopener,noreferrer')" class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2">
+                            <span>✈️</span>
+                            <span>Telegram</span>
+                        </button>
+                        <button onclick="navigator.clipboard.writeText('${shareText.replace(/'/g, "\\'")}').then(() => showMessage('Teks berhasil disalin!'))" class="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 px-4 rounded-lg flex items-center justify-center space-x-2">
+                            <span>📋</span>
+                            <span>Salin Teks</span>
+                        </button>
+                        <button onclick="this.closest('.fixed').remove()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 px-4 rounded-lg">
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(shareDialog);
+            
+            // Close on backdrop click
+            shareDialog.addEventListener('click', function(e) {
+                if (e.target === shareDialog) {
+                    shareDialog.remove();
+                }
+            });
+        }
+        
+        // Reset form
+        function resetForm() {
+            document.getElementById('recipientName').value = '';
+            document.getElementById('linkResult').classList.add('hidden');
+            currentPersonalLink = '';
+            currentRecipientName = '';
+            document.getElementById('recipientName').focus();
+        }
+        
+        // Show message helper
+        function showMessage(text, type = 'success') {
+            const bgColor = type === 'error' ? 'bg-red-500' : 'bg-green-500';
+            const message = document.createElement('div');
+            message.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50`;
+            message.textContent = text;
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+        
+        // Create falling petals
+        function createPetals() {
+            const petalsContainer = document.getElementById('petals');
+            
+            setInterval(() => {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDelay = Math.random() * 2 + 's';
+                petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                
+                petalsContainer.appendChild(petal);
+                
+                setTimeout(() => {
+                    petal.remove();
+                }, 8000);
+            }, 500);
+        }
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', function() {
+            createPetals();
+            document.getElementById('recipientName').focus();
+        });
+        
+        // Enter key support
+        document.getElementById('recipientName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generatePersonalLink();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98f46cb61684fd7d',t:'MTc2MDU4NDg3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
