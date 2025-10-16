@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator Link Undangan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-pink-50 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md text-center">
+    <h1 class="text-2xl font-bold text-pink-600 mb-4">💌 Generator Link Undangan</h1>
+    <p class="text-gray-600 mb-6">Masukkan nama tamu untuk membuat link undangan pribadi.</p>
+
+    <!-- Input Nama -->
+    <input 
+      id="namaInput" 
+      type="text" 
+      placeholder="Masukkan nama..." 
+      class="w-full border border-pink-300 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+    >
+
+    <!-- Tombol Generate -->
+    <button 
+      onclick="generateLink()" 
+      id="btnGenerate"
+      class="w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700 transition font-semibold"
+    >
+      Generate Link
+    </button>
+
+    <!-- Hasil Link -->
+    <div id="hasilLink" class="mt-6 hidden">
+      <p class="text-gray-700 mb-2">Link Undangan:</p>
+
+      <!-- Output Link -->
+      <input 
+        id="linkOutput" 
+        type="text" 
+        readonly 
+        class="w-full bg-gray-100 text-pink-700 font-semibold text-center p-3 rounded-lg mb-4"
+      >
+
+      <!-- Tombol Aksi -->
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="openInvitation()" class="bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition">
+          🎉 Buka Undangan
+        </button>
+        <button onclick="sendWhatsApp()" class="bg-emerald-500 text-white py-2 rounded-lg hover:bg-emerald-600 transition">
+          💬 Kirim WhatsApp
+        </button>
+        <button onclick="copyLink()" class="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+          📋 Salin Link
+        </button>
+        <button onclick="shareLink()" class="bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition">
+          🔗 Share Link
+        </button>
+      </div>
+
+      <!-- Tombol Regenerate -->
+      <button 
+        onclick="regenerate()" 
+        class="mt-4 w-full bg-gray-400 text-white py-2 rounded-lg hover:bg-gray-500 transition"
+      >
+        🔄 Regenerate
+      </button>
+
+      <p id="notifCopy" class="text-green-600 mt-2 hidden">✅ Link berhasil disalin!</p>
+    </div>
+  </div>
+
+  <script>
+    function generateLink() {
+      const nama = document.getElementById("namaInput").value.trim();
+      const hasilDiv = document.getElementById("hasilLink");
+      const linkOutput = document.getElementById("linkOutput");
+      const notif = document.getElementById("notifCopy");
+
+      if (nama === "") {
+        alert("Masukkan nama terlebih dahulu!");
+        return;
+      }
+
+      const encodedNama = encodeURIComponent(nama);
+      const link = `https://salimubet.github.io/wedingme?to=${encodedNama}`;
+
+      linkOutput.value = link;
+      hasilDiv.classList.remove("hidden");
+      notif.classList.add("hidden");
+      document.getElementById("btnGenerate").classList.add("hidden");
+      document.getElementById("namaInput").setAttribute("disabled", true);
+    }
+
+    function copyLink() {
+      const linkOutput = document.getElementById("linkOutput");
+      const notif = document.getElementById("notifCopy");
+
+      linkOutput.select();
+      linkOutput.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+
+      notif.classList.remove("hidden");
+      setTimeout(() => notif.classList.add("hidden"), 2000);
+    }
+
+    function openInvitation() {
+      const link = document.getElementById("linkOutput").value;
+      window.open(link, "_blank");
+    }
+
+    function sendWhatsApp() {
+      const link = document.getElementById("linkOutput").value;
+      const nama = document.getElementById("namaInput").value;
+      const pesan = `Halo ${nama}! 💌 Kami mengundangmu ke acara pernikahan kami.\n\nKlik link berikut untuk membuka undangan:\n${link}`;
+      const url = `https://wa.me/?text=${encodeURIComponent(pesan)}`;
+      window.open(url, "_blank");
+    }
+
+    function shareLink() {
+      const link = document.getElementById("linkOutput").value;
+      if (navigator.share) {
+        navigator.share({
+          title: "Undangan Pernikahan 💍",
+          text: "Yuk lihat undangan pernikahan kami!",
+          url: link,
+        });
+      } else {
+        alert("Fitur share tidak didukung di browser ini.");
+      }
+    }
+
+    function regenerate() {
+      document.getElementById("namaInput").value = "";
+      document.getElementById("namaInput").removeAttribute("disabled");
+      document.getElementById("hasilLink").classList.add("hidden");
+      document.getElementById("btnGenerate").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
