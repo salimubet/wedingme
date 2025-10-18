@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Wedding of Tiyah & Ubed</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+html, body { margin:0; padding:0; width:100%; overflow-x:hidden; font-family:'Cambria', sans-serif; scroll-behavior:smooth; }
+.font-dancing { font-family:'Dancing Script', cursive; }
+.bg-gradient-wedding { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f3e8ff 100%); }
+.animate-fade-in { animation: fadeIn 1s ease-in; }
+@keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+.petal { position:absolute; width:10px; height:10px; background:#f472b6; border-radius:50%; animation:fall 8s linear infinite; }
+@keyframes fall { 0% { transform:translateY(-100px) rotate(0deg); opacity:1; } 100% { transform:translateY(100vh) rotate(360deg); opacity:0; } }
+.music-note { position:fixed; bottom:20px; right:20px; z-index:1000; }
+.mempelai-bg { background: url('mempelai-bg.jpg') center/cover no-repeat; background-attachment:fixed; position:relative; overflow:hidden; }
+.mempelai-bg::before { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.3); }
+.mempelai-content { position:relative; z-index:10; }
+
+/* Chat Comment */
+.comment-bubble { background:#fff; padding:10px 14px; border-radius:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); margin-bottom:8px; position:relative; }
+.comment-author { font-weight:bold; color:#ec4899; margin-bottom:2px; }
+.comment-msg { margin-bottom:2px; }
+.comment-time { font-size:0.7rem; color:#9ca3af; margin-top:2px; }
+.comment-actions { position:absolute; top:6px; right:8px; display:flex; gap:6px; font-size:0.75rem; }
+.comment-actions button { background:none; border:none; color:#6b7280; cursor:pointer; transition: transform 0.2s, color 0.2s; }
+.comment-actions button:hover { transform: scale(1.2) rotate(-5deg); color:#ec4899; }
+.comment-actions button.heart:hover { color:#ef4444; transform: scale(1.3) rotate(-10deg); }
+.comment-actions button.reply:hover { color:#3b82f6; transform: scale(1.2) rotate(5deg); }
+
+.reply-bubble { background:#f3f4f6; padding:8px 12px; border-radius:16px; margin-left:20px; margin-top:4px; box-shadow:0 1px 3px rgba(0,0,0,0.08); position:relative; }
+.reply-author { font-weight:bold; color:#3b82f6; margin-bottom:2px; }
+.reply-msg { margin-bottom:2px; }
+.reply-time { font-size:0.7rem; color:#9ca3af; margin-top:2px; }
+.reply-actions { position:absolute; top:6px; right:8px; display:flex; gap:4px; font-size:0.7rem; }
+.reply-actions button { background:none; border:none; color:#6b7280; cursor:pointer; transition: transform 0.2s, color 0.2s; }
+.reply-actions button:hover { transform: scale(1.2) rotate(-5deg); color:#3b82f6; }
+.reply-actions button.heart:hover { color:#ef4444; transform: scale(1.3) rotate(-10deg); }
+.reply-actions button.reply:hover { color:#3b82f6; transform: scale(1.2) rotate(5deg); }
+
+@media (max-width: 640px){
+  h1,h2,h3{line-height:1.2;}
+  .font-dancing{font-size:clamp(1.5rem,6vw,3rem);}
+  section,footer{padding-left:1rem;padding-right:1rem;}
+  .max-w-4xl, .max-w-md { width:100%; }
+}
+
+
+
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes softPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(236,72,153,0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(168,85,247,0.8); }
+}`;
+document.head.appendChild(style);
+
+
+</style>
+</head>
+<body class="bg-gradient-wedding min-h-screen">
+
+<div id="petals"></div>
+<div id="musicControl" class="music-note hidden">
+  <button id="musicBtn" class="bg-pink-500 text-white p-3 rounded-full shadow-lg">🎵</button>
+</div>
+
+<section id="cover" class="min-h-screen flex flex-col items-center justify-center p-4 text-center">
+  <div class="animate-fade-in">
+        <h2 class="font-dancing text-3xl text-pink-600 mb-4">Undangan Pernikahan</h2>
+    <h1 class="font-dancing text-6xl md:text-8xl text-pink-600 mb-4">Tiyah & Ubed</h1>
+<h2 class="text-gray-700 text-2xl mb-6 font-serif tracking-wider italic relative inline-block">
+  <span class="before:absolute before:-left-8 before:top-1/2 before:w-6 before:h-px before:bg-gray-400 
+                after:absolute after:-right-8 after:top-1/2 after:w-6 after:h-px after:bg-gray-400">
+    13 • 12 • 25
+  </span>
+</h2>
+
+    <div class="bg-white/80 rounded-2xl p-6 shadow-xl max-w-md mx-auto mb-6">
+      <p class="text-gray-700 mb-3">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+      <div id="recipientName" class="text-lg font-semibold text-pink-600 mb-2">(Nama Tamu)</div>
+      <p class="text-sm italic text-gray-600" style="font-size: 0.7rem;">Mohon maaf apabila ada kesalahan dalam penulisan nama & gelar</p>
+    </div>
+
+<button onclick="openInvitation()" 
+style="
+  background: linear-gradient(90deg, #ec4899, #a855f7, #ec4899);
+  background-size: 200% 200%;
+  animation: gradientFlow 5s ease infinite, softPulse 2s ease-in-out infinite;
+  color: white;
+  padding: 12px 40px;
+  border-radius: 9999px;
+  font-size: 1.5rem;
+  font-family: 'Tahoma', cursive;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+"
+onmouseover="this.style.transform='scale(1.08)'"
+onmouseout="this.style.transform='scale(1)'">
+  💌 Buka Undangan
+</button>
+
+
+
+
+  </div>
+</section>
+
+<div id="invitation" class="hidden">
+  <!-- Header Mempelai -->
+  <header class="text-center py-10">
+    <!-- <h2 class="font-dancing text-5xl text-pink-600 mb-2">Tiyah & Ubed</h2> -->
+<p class="text-gray-500 text-base italic font-serif leading-snug tracking-normal px-6 md:px-16">
+  “Segala puji bagi Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah, izinkanlah kami merangkai cinta yang Engkau anugerahkan dalam ikatan pernikahan.”
+</p>
+
+
+
+  </header>
+
+<!-- Mempelai Section -->
+<section class="mempelai-bg py-16 px-4 text-white text-center">
+  <div class="mempelai-content max-w-md mx-auto">
+    <h2 class="font-dancing text-4xl mb-10">Menikah</h2>
+
+    <div class="bg-white/70 text-gray-800 rounded-2xl p-6 shadow-lg mb-4">
+<h3 class="font-dancing text-3xl font-extrabold text-pink-600 mb-1 drop-shadow-[0_0_10px_rgba(236,72,153,0.8)]">
+  Wafrotul Atiyah, S.H.
+</h3>
+
+      <p class="text-sm">Putri pertama dari <br> Bapak Fatkur Rohman & Ibu Mukholifah<br> KALITENGAH - LAMONGAN</p>
+    </div>
+
+<h2 class="font-dancing text-3xl text-white italic mb-4 mt-3 tracking-wide drop-shadow-lg">
+  dengan
+</h2>
+
+
+    <div class="bg-white/70 text-gray-800 rounded-2xl p-6 shadow-lg">
+<h3 class="font-dancing text-3xl font-extrabold text-pink-600 mb-1 drop-shadow-[0_0_10px_rgba(236,72,153,0.8)]">
+  Salim Ubaidillah, S.Kom.,Gr.
+</h3>
+
+      <p class="text-sm">Putra pertama dari<br> Bapak Muslihan (Purn TNI-AD) & Ibu Sri Fadilah <br> BABAT - LAMONGAN</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Detail Acara + Map -->
+  <section class="py-12 px-4 bg-white/60 text-gray-800">
+<h3 class="font-dancing text-3xl text-pink-600 mb-2 text-center">
+  Dengan penuh kebahagiaan
+</h3>
+<p class="text-gray-700 text-base font-serif italic leading-snug text-center px-8 md:px-20">
+  Kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara kami Insya Allah pada,<br><br>
+</p>
+
+
+
+
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl p-6 shadow text-center">
+        <h3 class="font-dancing text-5xl text-pink-600 mb-2"><b>Sabtu</h3>
+        <h3 class="font-dancing text-4xl text-pink-600 mb-2">13 Desember 2025</h3>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow text-center">
+        <h3 class="font-dancing text-2xl text-pink-600 mb-2">Akad Nikah</h3>
+        <p>08.00 WIB<br><br>
+        <h3 class="font-dancing text-2xl text-pink-600 mb-2">Resepsi</h3>
+        <p>10.00 WIB<br><br>
+        <h3 class="font-dancing text-2xl text-pink-600 mb-2">Kediaman Mempelai Wanita</h3>
+        <small>Dusun Dondoman RT 03 RW 01 Desa Bojoasri,<br>Kec Kalitengah KAB.LAMONGAN</small></p>
+      </div>
+    </div>
+    <div class="mt-8 max-w-4xl mx-auto text-center">
+      <iframe src="https://www.google.com/maps?q=-7.044735,112.409668&hl=es;z=15&output=embed" width="100%" height="300" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
+      <a href="https://www.google.com/maps?q=-7.044735,112.409668" target="_blank" class="text-pink-600 font-semibold mt-2 inline-block">Buka di Google Maps</a>
+    </div>
+  </section>
+
+  <!-- Countdown -->
+  <section class="py-10 text-center">
+    <h2 class="font-dancing text-4xl text-pink-600 mb-6">Menuju Hari Bahagia</h2>
+    <div id="countdown" class="grid grid-cols-4 gap-3 max-w-xs mx-auto"></div>
+  </section>
+
+  <!-- Ucapan & Kehadiran -->
+  <section class="py-12 px-4 bg-white/60">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="font-dancing text-4xl text-center text-pink-600 mb-8">Ucapan & Kehadiran</h2>
+      <form id="commentForm" class="bg-white/80 p-6 rounded-2xl shadow mb-6">
+        <input id="userName" placeholder="Nama Anda" class="w-full mb-3 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-pink-500" />
+        <div class="mb-3">
+          <label class="mr-4"><input type="radio" name="attendance" value="insyaAllah Hadir" checked> ✔️ insyaAllah Hadir</label><br>
+          <label><input type="radio" name="attendance" value="Maaf belum bisa hadir"> ❌ Maaf belum bisa hadir</label>
+        </div>
+        <textarea id="userMessage" rows="3" placeholder="Tuliskan ucapan & doa..." class="w-full mb-3 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-pink-500"></textarea>
+        <button class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 rounded-lg shadow hover:scale-105 transition">Kirim</button>
+      </form>
+      <div id="commentList" class="space-y-3 max-h-96 overflow-y-auto text-sm text-gray-800">
+        <p class="text-gray-500 text-center">Belum ada ucapan 😍</p>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Amplop Digital (Spoiler) -->
+<section class="py-12 px-4 bg-white text-center">
+  <h2 class="font-dancing text-4xl text-pink-600 mb-6">Amplop Digital</h2>
+
+  <!-- Tombol untuk membuka spoiler -->
+  <button id="toggleAmplop" onclick="toggleAmplop()"
+    class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-full shadow hover:scale-105 transition font-medium">
+    💌 Buka Amplop Digital
+  </button>
+
+  <!-- Konten Amplop Digital (disembunyikan dulu) -->
+  <div id="amplopContent"
+    class="max-w-md mx-auto mt-6 space-y-6 opacity-0 max-h-0 overflow-hidden transition-all duration-700 ease-in-out">
+
+
+  <div class="space-y-8 max-w-md mx-auto">
+
+</div>
+
+    <!-- 💳 1. TRANSFER BANK -->
+    <div class="bg-pink-50 p-5 rounded-xl shadow">
+      <h3 class="text-pink-600 font-semibold mb-4 text-lg text-center">Transfer Bank</h3>
+
+      <!-- BANK BCA -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
+          <div class="flex items-center gap-2">
+            <svg width="28" height="28" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#0060AF"/><text x="25" y="32" fill="white" font-size="20" font-family="Arial" text-anchor="middle">BCA</text></svg>
+            <p class="text-gray-700 font-medium">BANK BCA</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
+          <div>
+            <p class="text-gray-700">No. Rekening:</p>
+            <b id="rekBCA" class="text-gray-900">5610541790</b>
+          </div>
+          <button onclick="copyRekening('rekBCA', this)"
+            class="ml-2 px-3 py-1 bg-pink-500 text-white rounded text-sm flex items-center gap-1 hover:bg-pink-600 transition transform hover:scale-105">
+            <span class="copyIcon">📋</span>
+            <span class="copyText">Salin</span>
+          </button>
+        </div>
+
+        <small class="text-gray-700 text-left block">
+  Atas nama: <b class="text-gray-900">Mochamad Salim Ubaidillah</b>
+</small>
+
+      </div>
+
+      <hr class="border-pink-200 my-3">
+
+      <!-- BANK BNI -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
+          <div class="flex items-center gap-2">
+            <svg width="28" height="28" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#FF6600"/><text x="25" y="32" fill="white" font-size="20" font-family="Arial" text-anchor="middle">BNI</text></svg>
+            <p class="text-gray-700 font-medium">BANK BNI</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
+          <div>
+            <p class="text-gray-700">No. Rekening:</p>
+            <b id="rekBNI" class="text-gray-900">1950594856</b>
+          </div>
+          <button onclick="copyRekening('rekBNI', this)"
+            class="ml-2 px-3 py-1 bg-pink-500 text-white rounded text-sm flex items-center gap-1 hover:bg-pink-600 transition transform hover:scale-105">
+            <span class="copyIcon">📋</span>
+            <span class="copyText">Salin</span>
+          </button>
+        </div>
+
+        <small class="text-gray-700 text-left block">
+  Atas nama: <b class="text-gray-900">Mochamad Salim Ubaidillah</b>
+</small>
+
+      </div>
+
+      <hr class="border-pink-200 my-3">
+
+      <!-- BANK BRIMO -->
+      <div>
+        <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
+          <div class="flex items-center gap-2">
+            <svg width="28" height="28" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#003366"/><text x="25" y="32" fill="white" font-size="16" font-family="Arial" text-anchor="middle">BRI</text></svg>
+            <p class="text-gray-700 font-medium">BANK BRimo</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
+          <div>
+            <p class="text-gray-700">No. Rekening:</p>
+            <b id="rekBRI" class="text-gray-900">211801012372501</b>
+          </div>
+          <button onclick="copyRekening('rekBRI', this)"
+            class="ml-2 px-3 py-1 bg-pink-500 text-white rounded text-sm flex items-center gap-1 hover:bg-pink-600 transition transform hover:scale-105">
+            <span class="copyIcon">📋</span>
+            <span class="copyText">Salin</span>
+          </button>
+        </div>
+
+        <small class="text-gray-700 text-left block">
+  Atas nama: <b class="text-gray-900">Mochamad Salim Ubaidillah</b>
+</small>
+
+      </div>
+    </div>
+
+    <!-- 💰 2. E-WALLET -->
+    <div class="bg-pink-50 p-5 rounded-xl shadow">
+      <h3 class="text-pink-600 font-semibold mb-4 text-lg text-center">E-Wallet</h3>
+
+      <!-- DANA -->
+      <div class="flex items-center justify-between border-b border-pink-200 pb-2 mb-2">
+        <div class="flex items-center gap-2">
+          <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#0079FF"/><text x="25" y="32" fill="white" font-size="14" font-family="Arial" text-anchor="middle">DANA</text></svg>
+          <p class="text-gray-700 font-medium">DANA</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <b id="ewDana" class="text-gray-900">085610541790</b>
+          <button onclick="copyRekening('ewDana', this)"
+            class="px-2 py-1 bg-pink-500 text-white rounded text-sm hover:bg-pink-600 transition">📋</button>
+        </div>
+      </div>
+
+      <!-- SHOPEEPAY -->
+      <div class="flex items-center justify-between border-b border-pink-200 pb-2 mb-2">
+        <div class="flex items-center gap-2">
+          <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#FF6600"/><text x="25" y="32" fill="white" font-size="10" font-family="Arial" text-anchor="middle">ShopeePay</text></svg>
+          <p class="text-gray-700 font-medium">ShopeePay</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <b id="ewShopee" class="text-gray-900">081234567891</b>
+          <button onclick="copyRekening('ewShopee', this)"
+            class="px-2 py-1 bg-pink-500 text-white rounded text-sm hover:bg-pink-600 transition">📋</button>
+        </div>
+      </div>
+
+      <!-- OVO -->
+      <div class="flex items-center justify-between border-b border-pink-200 pb-2 mb-2">
+        <div class="flex items-center gap-2">
+          <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#5C2D91"/><text x="25" y="32" fill="white" font-size="14" font-family="Arial" text-anchor="middle">OVO</text></svg>
+          <p class="text-gray-700 font-medium">OVO</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <b id="ewOVO" class="text-gray-900">081234567892</b>
+          <button onclick="copyRekening('ewOVO', this)"
+            class="px-2 py-1 bg-pink-500 text-white rounded text-sm hover:bg-pink-600 transition">📋</button>
+        </div>
+      </div>
+
+      <!-- GOPAY -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#00A859"/><text x="25" y="32" fill="white" font-size="12" font-family="Arial" text-anchor="middle">GOPAY</text></svg>
+          <p class="text-gray-700 font-medium">GoPay</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <b id="ewGopay" class="text-gray-900">081234567893</b>
+          <button onclick="copyRekening('ewGopay', this)"
+            class="px-2 py-1 bg-pink-500 text-white rounded text-sm hover:bg-pink-600 transition">📋</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🧾 3. QRIS -->
+    <div class="bg-pink-50 p-5 rounded-xl shadow text-center">
+      <h3 class="text-pink-600 font-semibold mb-4 text-lg">QRIS</h3>
+      <img src="qris.png" alt="QRIS" class="mx-auto w-40 rounded-lg shadow">
+      <p class="text-gray-700 mt-3 text-sm">Scan QR di atas untuk mengirim melalui aplikasi pilihanmu 🤳</p>
+    </div>
+
+
+
+    <!-- Kirim Hadiah -->
+    <div>
+      <a href="https://saweria.co/tiyahubed" target="_blank"
+        class="inline-block bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full shadow hover:scale-105 transition">
+        Kirim Hadiah 💝
+      </a>
+    </div>
+
+	<!-- Konfirmasi Kirim Kado -->
+<div class="bg-pink-50 p-6 rounded-xl shadow mt-8">
+  <h3 class="text-pink-600 font-semibold text-lg mb-4 text-center">Konfirmasi Kirim Kado 🎁</h3>
+
+  <form id="kadoForm" class="space-y-4 text-left text-gray-700">
+
+    <!-- Nama -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Nama Anda</label>
+      <input id="kadoNama" type="text"
+        class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none"
+        placeholder="Tulis nama Anda">
+    </div>
+
+    <!-- Nominal/Kado -->
+    <div>
+      <label class="block text-sm font-medium mb-1">Nominal / Jenis Kado</label>
+      <input id="kadoNominal" type="text"
+        class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none"
+        placeholder="Contoh: Rp500.000 / Parcel / Bingkisan">
+    </div>
+
+    <!-- Pilihan Tujuan -->
+    <div>
+      <label class="block text-sm font-medium mb-2">Pilih Tujuan Pengiriman</label>
+
+      <select id="kategoriKado"
+        class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none mb-3"
+        onchange="updateTujuanList()">
+        <option value="">-- Pilih Jenis Pengiriman --</option>
+        <option value="bank">Transfer Bank</option>
+        <option value="ewallet">E-Wallet</option>
+        <option value="qris">QRIS</option>
+        <option value="hadiah">Kirim Hadiah</option>
+      </select>
+
+      <select id="kadoTujuan"
+        class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none">
+        <option value="">-- Pilih Tujuan --</option>
+      </select>
+    </div>
+
+    <!-- Tombol WhatsApp -->
+    <button type="button" onclick="kirimKonfirmasiWA()"
+      class="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg shadow hover:scale-105 transition">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+        class="w-5 h-5">
+      <span class="font-medium">Konfirmasi via WhatsApp</span>
+    </button>
+  </form>
+</div>
+
+
+  </div>
+</section>
+
+
+
+
+  <footer class="py-10 text-center bg-white/60">
+    <h3 class="font-dancing text-3xl text-pink-600 mb-2">Terima Kasih</h3>
+<p class="text-gray-600 text-sm font-serif italic leading-snug px-6 md:px-20 text-center">
+  Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu di hari bahagia kami.
+</p>
+
+    <p class="text-xs text-gray-500 mt-4">Tiyah & Ubed • 2025</p>
+  </footer>
+</div>
+
+<audio id="bgMusic" src="musik.mp3" preload="auto" loop></audio>
+
+<script>
+// --- Musik & Petals & Countdown ---
+let isPlaying=false;
+function openInvitation(){
+  document.getElementById("cover").style.display="none";
+  document.getElementById("invitation").classList.remove("hidden");
+  document.getElementById("musicControl").classList.remove("hidden");
+  startCountdown();
+  createPetals();
+  const music=document.getElementById("bgMusic"), btn=document.getElementById("musicBtn");
+  music.play().then(()=>{isPlaying=true;btn.textContent="🎵";}).catch(()=>{btn.textContent="🔇";});
+}
+document.getElementById("musicBtn").addEventListener("click",()=>{
+  const m=document.getElementById("bgMusic"), b=document.getElementById("musicBtn");
+  if(isPlaying){m.pause();b.textContent="🔇";}else{m.play();b.textContent="🎵";} isPlaying=!isPlaying;
+});
+function startCountdown(){
+  const d=new Date("2025-12-13T09:00:00");
+  setInterval(()=>{
+    const now=new Date().getTime(), dist=d-now;
+    if(dist<0){document.getElementById("countdown").innerHTML='<div class="col-span-4 text-pink-600 font-dancing text-xl">Hari Bahagia Telah Tiba! 💕</div>'; return;}
+    const days=Math.floor(dist/(1000*60*60*24)),
+          h=Math.floor((dist%(1000*60*60*24))/(1000*60*60)),
+          m=Math.floor((dist%(1000*60*60))/(1000*60)),
+          s=Math.floor((dist%(1000*60))/1000);
+    document.getElementById("countdown").innerHTML=[["Hari",days],["Jam",h],["Menit",m],["Detik",s]].map(([l,v])=>`<div class='bg-white/80 rounded-lg p-3 shadow'><div class='text-2xl font-bold text-pink-600'>${v}</div><div>${l}</div></div>`).join("");
+  },1000);
+}
+function createPetals(){
+  const p=document.getElementById("petals");
+  setInterval(()=>{
+    const el=document.createElement("div");
+    el.className="petal";
+    el.style.left=Math.random()*100+"%";
+    el.style.animationDelay=Math.random()*2+"s";
+    el.style.animationDuration=(Math.random()*3+5)+"s";
+    p.appendChild(el);
+    setTimeout(()=>el.remove(),8000);
+  },300);
+}
+function copyRekening() {
+  const nomor=document.getElementById("rekeningNumber").textContent;
+  navigator.clipboard.writeText(nomor).then(()=>{alert("Nomor rekening berhasil disalin! 💕");}).catch(()=>{alert("Gagal menyalin, silakan salin manual.");});
+}
+
+// --- Komentar & Reply ---
+function getComments(){ 
+  try { 
+    const c=JSON.parse(localStorage.getItem("comments")||"[]");
+    if(!Array.isArray(c)) return [];
+    return c.map(x=>({...x,replies:x.replies||[]})); 
+  } catch(e){ return []; }
+}
+const form=document.getElementById("commentForm");
+form.addEventListener("submit", e=>{
+  e.preventDefault();
+  const name=document.getElementById("userName").value.trim();
+  const msg=document.getElementById("userMessage").value.trim();
+  const attendance=document.querySelector('input[name="attendance"]:checked').value;
+  if(!name||!msg){ alert("Isi nama dan ucapan ya 💕"); return; }
+  const symbol=attendance==="insyaAllah Hadir"?"✔️ insyaAllah Hadir":"❌ Maaf belum bisa hadir";
+  const now=new Date();
+  const c={id:Date.now(),name,msg,attendance:symbol,likes:0,time:now.toLocaleDateString('id-ID').split('.').reverse().join('/')+', '+now.toLocaleTimeString('id-ID'),replies:[]};
+  const arr=getComments();
+  arr.push(c);
+  localStorage.setItem("comments",JSON.stringify(arr));
+  form.reset();
+  renderComments();
+});
+
+function renderComments(){
+  const arr=getComments();
+  const commentList=document.getElementById("commentList");
+  if(arr.length===0){commentList.innerHTML='<p class="text-gray-500 text-center">Belum ada ucapan 😍</p>'; return;}
+  arr.sort((a,b)=>b.id-a.id);
+  commentList.innerHTML=arr.map(c=>{
+    const replies=c.replies.map((r,ri)=>`
+      <div class="reply-bubble" id="reply-${c.id}-${ri}">
+        <div class="reply-actions">
+          <button class="heart" onclick="likeReply(${c.id},${ri})">❤️ ${r.likes||0}</button>
+          <button onclick="editReply(${c.id},${ri})">✏️</button>
+          <button onclick="deleteReply(${c.id},${ri})">🗑️</button>
+        </div>
+        <div class="reply-author">${r.name}</div>
+        <div class="reply-msg">${r.msg}</div>
+        <div class="reply-time">${r.time}</div>
+      </div>
+    `).join("");
+    return `<div class="comment-bubble" id="comment-${c.id}">
+      <div class="comment-actions">
+        <button class="heart" onclick="likeComment(${c.id})">❤️ ${c.likes}</button>
+        <button onclick="editComment(${c.id})">✏️</button>
+        <button onclick="deleteComment(${c.id})">🗑️</button>
+        <button class="reply" onclick="replyComment(${c.id})">↩️</button>
+      </div>
+      <div class="comment-author">
+        ${c.name} 
+        ${c.attendance === "✔️ insyaAllah Hadir" 
+          ? '<span class="text-green-600 font-semibold">✔️</span>' 
+          : '<span class="text-red-600 font-semibold">❌</span>'}
+      </div>
+      <div class="comment-msg">${c.msg}</div>
+      <div class="comment-time">${c.time}</div>
+      ${replies}
+    </div>`;
+  }).join("");
+}
+
+function likeComment(id){ const arr=getComments(); const c=arr.find(x=>x.id===id); if(c){c.likes++; localStorage.setItem("comments",JSON.stringify(arr)); renderComments();} }
+function editComment(id){ const arr=getComments(); const c=arr.find(x=>x.id===id); if(!c) return; const n=prompt("Edit ucapan:",c.msg); if(n&&n.trim()!==""){ c.msg=n; localStorage.setItem("comments",JSON.stringify(arr)); renderComments();} }
+function deleteComment(id){ if(!confirm("Yakin hapus ucapan ini?")) return; let arr=getComments(); arr=arr.filter(x=>x.id!==id); localStorage.setItem("comments",JSON.stringify(arr)); renderComments(); }
+
+function replyComment(id){ 
+  const arr=getComments(); 
+  const c=arr.find(x=>x.id===id); 
+  if(!c) return; 
+  const rName=prompt("Nama Anda untuk balasan:"); 
+  if(!rName||rName.trim()==="") return; 
+  const rMsg=prompt("Balas ucapan "+c.name+":"); 
+  if(rMsg && rMsg.trim()!==""){ 
+    const now=new Date();
+    const rTime=now.toLocaleDateString('id-ID').split('.').reverse().join('/')+', '+now.toLocaleTimeString('id-ID');
+    c.replies.push({name:rName,msg:rMsg,time:rTime,likes:0}); 
+    localStorage.setItem("comments",JSON.stringify(arr)); 
+    renderComments();
+  } 
+}
+
+function likeReply(id,ri){ 
+  const arr=getComments(); 
+  const c=arr.find(x=>x.id===id); 
+  if(!c) return; 
+  c.replies[ri].likes=(c.replies[ri].likes||0)+1; 
+  localStorage.setItem("comments",JSON.stringify(arr)); 
+  renderComments(); 
+}
+
+function editReply(id,ri){
+  const arr=getComments();
+  const r=arr.find(x=>x.id===id).replies[ri];
+  const n=prompt("Edit balasan:",r.msg);
+  if(n&&n.trim()!==""){ r.msg=n; localStorage.setItem("comments",JSON.stringify(arr)); renderComments();}
+}
+
+function deleteReply(id,ri){
+  if(!confirm("Yakin hapus balasan ini?")) return;
+  const arr=getComments();
+  arr.find(x=>x.id===id).replies.splice(ri,1);
+  localStorage.setItem("comments",JSON.stringify(arr));
+  renderComments();
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  renderComments();
+  const p=new URLSearchParams(window.location.search).get("to");
+  if(p) document.getElementById("recipientName").textContent=decodeURIComponent(p);
+});
+
+
+<!-- Script untuk Spoiler & WhatsApp -->
+
+function toggleAmplop() {
+  const content = document.getElementById("amplopContent");
+  const btn = document.getElementById("toggleAmplop");
+  const isOpen = content.classList.contains("open");
+
+  if (isOpen) {
+    content.classList.remove("open");
+    content.style.maxHeight = "0px";
+    content.style.opacity = "0";
+    btn.innerHTML = "💌 Buka Amplop Digital";
+  } else {
+    content.classList.add("open");
+    content.style.maxHeight = content.scrollHeight + "px";
+    content.style.opacity = "1";
+    btn.innerHTML = "❌ Tutup Amplop Digital";
+  }
+}
+
+
+  const tujuanOptions = {
+    bank: [
+      "BANK BCA - 5610541790 a.n Mochamad Salim Ubaidillah",
+      "BANK BNI - 1950594856 a.n Mochamad Salim Ubaidillah",
+      "BANK BRImo - 211801012372501 a.n Mochamad Salim Ubaidillah"
+    ],
+    ewallet: [
+      "Dana - 085610541790 a.n Tiyah Ubed",
+      "ShopeePay - 085610541790 a.n Tiyah Ubed",
+      "OVO - 085610541790 a.n Tiyah Ubed",
+      "GoPay - 085610541790 a.n Tiyah Ubed"
+    ],
+    qris: [
+      "QRIS - Scan QR yang tersedia pada halaman Amplop Digital"
+    ],
+    hadiah: [
+      "Alamat Rumah - Dusun Dondoman RT003 RW001 Desa Bojoasri Kec. Kalitengah KAB.LAMONGAN",
+      "Alamat Rumah - Dusun Suruhan RT004 RW006 Desa Gembong Kec. Babat KAB.LAMONGAN"
+    ]
+  };
+
+  function updateTujuanList() {
+    const kategori = document.getElementById("kategoriKado").value;
+    const tujuanSelect = document.getElementById("kadoTujuan");
+    tujuanSelect.innerHTML = "";
+
+    if (kategori && tujuanOptions[kategori]) {
+      tujuanOptions[kategori].forEach(item => {
+        const opt = document.createElement("option");
+        opt.value = item;
+        opt.textContent = item;
+        tujuanSelect.appendChild(opt);
+      });
+    } else {
+      const opt = document.createElement("option");
+      opt.value = "";
+      opt.textContent = "-- Pilih Tujuan --";
+      tujuanSelect.appendChild(opt);
+    }
+  }
+
+  function kirimKonfirmasiWA() {
+    const nama = document.getElementById("kadoNama").value.trim();
+    const nominal = document.getElementById("kadoNominal").value.trim();
+    const tujuan = document.getElementById("kadoTujuan").value;
+    if (!nama || !nominal || !tujuan) {
+      alert("Harap isi semua data terlebih dahulu 💝");
+      return;
+    }
+
+    const pesan = `Halo, saya ${nama} ingin konfirmasi pengiriman kado.\nNominal/Kado: ${nominal}\nTujuan: ${tujuan}\nTerima kasih 😊🙏💖`;
+    const nomorWA = "6281230070813"; // ← ubah ke nomor WhatsApp kamu
+    const url = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
+    window.open(url, "_blank");
+  }
+
+
+
+function copyRekening(id, btn) {
+  const rekening = document.getElementById(id).innerText;
+  const icon = btn.querySelector('.copyIcon');
+  const text = btn.querySelector('.copyText');
+
+  // Jika tombol punya teks dan ikon (untuk bagian bank)
+  if (icon && text) {
+    navigator.clipboard.writeText(rekening).then(() => {
+      icon.textContent = "✅";
+      text.textContent = "Tersalin";
+      btn.classList.add("scale-110");
+      setTimeout(() => {
+        icon.textContent = "📋";
+        text.textContent = "Salin";
+        btn.classList.remove("scale-110");
+      }, 2000);
+    });
+  } else {
+    // Untuk tombol E-Wallet (tanpa teks Salin)
+    navigator.clipboard.writeText(rekening).then(() => {
+      btn.textContent = "✅";
+      btn.classList.add("scale-110");
+      setTimeout(() => {
+        btn.textContent = "📋";
+        btn.classList.remove("scale-110");
+      }, 2000);
+    });
+  }
+}
+
+
+</script>
+</body>
+</html>
