@@ -1,115 +1,123 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>The Wedding of Tiyah & Ubed</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
-html,body{margin:0;padding:0;width:100%;overflow-x:hidden;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
-.font-dancing{font-family:'Dancing Script',cursive;}
-.bg-gradient-wedding{background:linear-gradient(135deg,#fdf2f8 0%,#fce7f3 50%,#f3e8ff 100%);}
-.comment-bubble{background:#fff;padding:10px 14px;border-radius:16px;box-shadow:0 2px 5px rgba(0,0,0,0.1);margin-bottom:8px;position:relative;}
-.comment-author{font-weight:bold;color:#ec4899;margin-bottom:2px;}
-.comment-msg{margin-bottom:2px;}
-.comment-time{font-size:0.7rem;color:#9ca3af;margin-top:2px;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Wedding of Tiyah & Ubed</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+    html,body{margin:0;padding:0;width:100%;overflow-x:hidden;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+    .font-dancing{font-family:'Dancing Script',cursive;}
+    .bg-gradient-wedding{background:linear-gradient(135deg,#fdf2f8 0%,#fce7f3 50%,#f3e8ff 100%);}
+    .comment-bubble{background:#fff;padding:10px 14px;border-radius:16px;box-shadow:0 2px 5px rgba(0,0,0,0.1);margin-bottom:8px;}
+    .comment-author{font-weight:bold;color:#ec4899;margin-bottom:2px;}
+    .comment-msg{margin-bottom:2px;}
+    .comment-time{font-size:0.7rem;color:#9ca3af;margin-top:2px;}
+  </style>
 </head>
-
 <body class="bg-gradient-wedding min-h-screen">
-<section class="min-h-screen flex flex-col items-center justify-center p-4 text-center">
-  <h2 class="font-dancing text-3xl text-pink-600 mb-4">Undangan Pernikahan</h2>
-  <h1 class="font-dancing text-6xl md:text-8xl text-pink-600 mb-4">Tiyah & Ubed</h1>
-  <button onclick="document.getElementById('invitation').classList.remove('hidden')" class="bg-pink-500 hover:bg-pink-600 text-white py-3 px-8 rounded-full shadow text-lg transition">💌 Buka Undangan</button>
-</section>
 
-<div id="invitation" class="hidden">
-  <section class="py-12 px-4 bg-white/60 text-center">
-    <h2 class="font-dancing text-4xl text-pink-600 mb-8">Ucapan & Kehadiran</h2>
-
-    <form id="commentForm" class="bg-white/80 p-6 rounded-2xl shadow mb-6 max-w-3xl mx-auto">
-      <input id="userName" placeholder="Nama Anda" class="w-full mb-3 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-pink-500" />
-      <div class="mb-3">
-        <label class="mr-4"><input type="radio" name="attendance" value="insyaAllah Hadir" checked> ✔️ insyaAllah Hadir</label><br>
-        <label><input type="radio" name="attendance" value="Maaf belum bisa hadir"> ❌ Maaf belum bisa hadir</label>
-      </div>
-      <textarea id="userMessage" rows="3" placeholder="Tuliskan ucapan & doa..." class="w-full mb-3 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-pink-500"></textarea>
-      <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 rounded-lg shadow hover:scale-105 transition">Kirim</button>
-    </form>
-
-    <div id="commentList" class="space-y-3 max-h-96 overflow-y-auto text-sm text-gray-800">
-      <p class="text-gray-500 text-center">Memuat ucapan...</p>
-    </div>
+  <!-- Cover -->
+  <section class="min-h-screen flex flex-col items-center justify-center p-4 text-center">
+    <h2 class="font-dancing text-3xl text-pink-600 mb-4">Undangan Pernikahan</h2>
+    <h1 class="font-dancing text-6xl md:text-8xl text-pink-600 mb-4">Tiyah & Ubed</h1>
+    <button onclick="document.getElementById('invitation').classList.remove('hidden')" 
+      class="bg-pink-500 hover:bg-pink-600 text-white py-3 px-8 rounded-full shadow text-lg transition">
+      💌 Buka Undangan
+    </button>
   </section>
-</div>
 
-<footer class="py-10 text-center bg-white/60">
-  <h3 class="font-dancing text-3xl text-pink-600 mb-2">Terima Kasih</h3>
-  <p class="text-gray-600 text-sm font-serif italic leading-snug px-6 md:px-20 text-center">
-    Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu di hari bahagia kami.
-  </p>
-  <p class="text-xs text-gray-500 mt-4">Tiyah & Ubed • 2025</p>
-</footer>
+  <!-- Isi Undangan -->
+  <div id="invitation" class="hidden">
+    <section class="py-12 px-4 bg-white/60 text-center">
+      <h2 class="font-dancing text-4xl text-pink-600 mb-8">Ucapan & Kehadiran</h2>
 
-<script>
-// === GOOGLE SHEETS CONNECTION ===
-const scriptURL = "https://script.google.com/macros/s/AKfycbwj4AJQ0_vFbke9P01SF1WqETOKgQ5-U4KXdXEKbItZjc5prO1GB1sjnuszkxay462q/exec";
-
-async function loadComments() {
-  try {
-    const res = await fetch(scriptURL);
-    const data = await res.json();
-    const list = document.getElementById("commentList");
-
-    if (!data.length) {
-      list.innerHTML = '<p class="text-gray-500 text-center">Belum ada ucapan 😍</p>';
-      return;
-    }
-
-    list.innerHTML = data.reverse().map(c => `
-      <div class="comment-bubble">
-        <div class="comment-author">
-          ${c.nama}
-          ${c.kehadiran.includes("Hadir")
-            ? '<span class="text-green-600 font-semibold ml-1">✔️</span>'
-            : '<span class="text-red-600 font-semibold ml-1">❌</span>'}
+      <!-- Form Komentar -->
+      <form id="commentForm" class="bg-white/80 p-6 rounded-2xl shadow mb-6 max-w-3xl mx-auto">
+        <input id="userName" placeholder="Nama Anda" class="w-full mb-3 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-pink-500" />
+        <div class="mb-3">
+          <label class="mr-4"><input type="radio" name="attendance" value="insyaAllah Hadir" checked> ✔️ insyaAllah Hadir</label><br>
+          <label><input type="radio" name="attendance" value="Maaf belum bisa hadir"> ❌ Maaf belum bisa hadir</label>
         </div>
-        <div class="comment-msg">${c.pesan}</div>
-        <div class="comment-time">${new Date(c.timestamp).toLocaleString('id-ID')}</div>
+        <textarea id="userMessage" rows="3" placeholder="Tuliskan ucapan & doa..." class="w-full mb-3 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-pink-500"></textarea>
+        <button type="submit" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 rounded-lg shadow hover:scale-105 transition">Kirim</button>
+      </form>
+
+      <!-- Daftar Komentar -->
+      <div id="commentList" class="space-y-3 max-h-96 overflow-y-auto text-sm text-gray-800">
+        <p class="text-gray-500 text-center">Memuat ucapan...</p>
       </div>
-    `).join("");
-  } catch (err) {
-    document.getElementById("commentList").innerHTML =
-      '<p class="text-center text-red-500">Gagal memuat komentar 😢</p>';
-  }
-}
+    </section>
+  </div>
 
-document.getElementById("commentForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const nama = document.getElementById("userName").value.trim();
-  const pesan = document.getElementById("userMessage").value.trim();
-  const kehadiran = document.querySelector('input[name="attendance"]:checked').value;
+  <!-- Footer -->
+  <footer class="py-10 text-center bg-white/60">
+    <h3 class="font-dancing text-3xl text-pink-600 mb-2">Terima Kasih</h3>
+    <p class="text-gray-600 text-sm font-serif italic leading-snug px-6 md:px-20 text-center">
+      Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu di hari bahagia kami.
+    </p>
+    <p class="text-xs text-gray-500 mt-4">Tiyah & Ubed • 2025</p>
+  </footer>
 
-  if (!nama || !pesan) {
-    alert("Isi nama dan ucapan ya 💕");
-    return;
-  }
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-  try {
-    await fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify({ nama, pesan, kehadiran }),
-      headers: { "Content-Type": "application/json" }
+  <script>
+    // ✅ KONFIGURASI FIREBASE KAMU
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4l3qJ-y7i4zL5DdqmbvO-DUMMY-KEY", // optional, bisa kosong
+      authDomain: "komentardb.firebaseapp.com",
+      databaseURL: "https://komentardb-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "komentardb",
+      storageBucket: "komentardb.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:1234567890:web:abcdef123456"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Kirim komentar
+    document.getElementById("commentForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const nama = document.getElementById("userName").value.trim();
+      const pesan = document.getElementById("userMessage").value.trim();
+      const kehadiran = document.querySelector('input[name="attendance"]:checked').value;
+      if (!nama || !pesan) return alert("Isi nama dan ucapan ya 💕");
+
+      db.ref("komentar").push({
+        nama, pesan, kehadiran,
+        waktu: new Date().toISOString()
+      });
+      document.getElementById("commentForm").reset();
     });
-    document.getElementById("commentForm").reset();
-    loadComments();
-  } catch (err) {
-    alert("Gagal mengirim ucapan 😢, coba lagi.");
-  }
-});
 
-window.addEventListener("DOMContentLoaded", loadComments);
-</script>
+    // Tampilkan komentar realtime
+    db.ref("komentar").on("value", snapshot => {
+      const data = snapshot.val() || {};
+      const arr = Object.values(data).reverse();
+      const list = document.getElementById("commentList");
+
+      if (!arr.length) {
+        list.innerHTML = '<p class="text-gray-500 text-center">Belum ada ucapan 😍</p>';
+        return;
+      }
+
+      list.innerHTML = arr.map(c => `
+        <div class="comment-bubble">
+          <div class="comment-author">
+            ${c.nama}
+            ${c.kehadiran.includes("Hadir") 
+              ? '<span class="text-green-600 font-semibold ml-1">✔️</span>' 
+              : '<span class="text-red-600 font-semibold ml-1">❌</span>'}
+          </div>
+          <div class="comment-msg">${c.pesan}</div>
+          <div class="comment-time">${new Date(c.waktu).toLocaleString('id-ID')}</div>
+        </div>
+      `).join("");
+    });
+  </script>
 </body>
 </html>
