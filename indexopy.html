@@ -587,10 +587,25 @@ form.addEventListener("submit", e => {
 });
 
 // Tampilkan komentar realtime
-commentsRef.on("value", snapshot => {
-  const data = snapshot.val();
-  const arr = data ? Object.entries(data).map(([id, v]) => ({ id, ...v })) : [];
-  arr.sort((a, b) => new Date(b.time) - new Date(a.time));
+let comments = {};
+commentsRef.on("child_added", snap => {
+  const id = snap.key;
+  comments[id] = snap.val();
+  renderAllComments();
+});
+commentsRef.on("child_changed", snap => {
+  const id = snap.key;
+  comments[id] = snap.val();
+  renderAllComments();
+});
+commentsRef.on("child_removed", snap => {
+  delete comments[snap.key];
+  renderAllComments();
+});
+
+function renderAllComments() {
+  const arr = Object.entries(comments).map(([id, v]) => ({ id, ...v }))
+                .sort((a, b) => new Date(b.time) - new Date(a.time));
 
   if (arr.length === 0) {
     commentList.innerHTML = '<p class="text-gray-500 text-center">Belum ada ucapan 😍</p>';
@@ -616,7 +631,8 @@ commentsRef.on("value", snapshot => {
   `).join("");
 
   arr.forEach(c => renderReplies(c.id, c.replies || {}));
-});
+}
+
 
 // Like komentar
 function likeComment(id) {
