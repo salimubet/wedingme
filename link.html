@@ -110,7 +110,31 @@
     function sendWhatsApp() {
       const link = document.getElementById("linkOutput").value;
       const nama = document.getElementById("namaInput").value;
-      const pesan = `Halo ${nama}! 💌 Kami mengundangmu ke acara pernikahan kami.\n\nKlik link berikut untuk membuka undangan:\n${link}`;
+      
+      const pesan = `Yth. ${nama}
+
+Assalamualaikum Warahmatullahi Wabarakatuh
+
+Dengan memohon Rahmat dan Ridho Allah SWT, dan tanpa mengurangi rasa hormat melalui pesan ini kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :
+
+*Tiyah & Ubed*
+
+Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :
+
+${link}
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.
+
+Mohon maaf perihal undangan hanya dibagikan melalui pesan ini.
+
+*Note :*
+_Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya._
+_Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap._
+
+Terima kasih banyak atas perhatiannya.
+
+Wassalamualaikum Warahmatullahi Wabarakatuh`;
+
       const url = `https://wa.me/?text=${encodeURIComponent(pesan)}`;
       window.open(url, "_blank");
     }
@@ -137,3 +161,4 @@
   </script>
 </body>
 </html>
+
