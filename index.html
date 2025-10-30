@@ -318,14 +318,14 @@
         <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
           <div class="flex items-center gap-2">
             <svg width="28" height="28" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#003366"/><text x="25" y="32" fill="white" font-size="16" font-family="Arial" text-anchor="middle">BRI</text></svg>
-            <p class="text-gray-700 font-medium">BANK BRimo</p>
+            <p class="text-gray-700 font-medium">BANK BRI</p>
           </div>
         </div>
 
         <div class="flex items-center justify-between border-b border-pink-200 pb-1 mb-2">
           <div>
             <p class="text-gray-700">No. Rekening:</p>
-            <b id="rekBRI" class="text-gray-900">211801012372501</b>
+            <b id="rekBRI" class="text-gray-900">630601024227533</b>
           </div>
           <button onclick="copyRekening('rekBRI', this)"
             class="ml-2 px-3 py-1 bg-pink-500 text-white rounded text-sm flex items-center gap-1 hover:bg-pink-600 transition transform hover:scale-105">
@@ -335,17 +335,17 @@
         </div>
 
         <small class="text-gray-700 text-left block">
-  Atas nama: <b class="text-gray-900">Mochamad Salim Ubaidillah</b>
+  Atas nama: <b class="text-gray-900">Wafrotul Atiyah</b>
 </small>
 
       </div>
     </div>
 
-    <!-- 💰 2. E-WALLET -->
+    <!-- 💰 2. E-WALLET --
     <div class="bg-pink-50 p-5 rounded-xl shadow">
       <h3 class="text-pink-600 font-semibold mb-4 text-lg text-center">E-Wallet</h3>
 
-      <!-- DANA -->
+      <!-- DANA --
       <div class="flex items-center justify-between border-b border-pink-200 pb-2 mb-2">
         <div class="flex items-center gap-2">
           <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#0079FF"/><text x="25" y="32" fill="white" font-size="14" font-family="Arial" text-anchor="middle">DANA</text></svg>
@@ -358,7 +358,7 @@
         </div>
       </div>
 
-      <!-- SHOPEEPAY -->
+      <!-- SHOPEEPAY --
       <div class="flex items-center justify-between border-b border-pink-200 pb-2 mb-2">
         <div class="flex items-center gap-2">
           <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#FF6600"/><text x="25" y="32" fill="white" font-size="10" font-family="Arial" text-anchor="middle">ShopeePay</text></svg>
@@ -371,7 +371,7 @@
         </div>
       </div>
 
-      <!-- OVO -->
+      <!-- OVO --
       <div class="flex items-center justify-between border-b border-pink-200 pb-2 mb-2">
         <div class="flex items-center gap-2">
           <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#5C2D91"/><text x="25" y="32" fill="white" font-size="14" font-family="Arial" text-anchor="middle">OVO</text></svg>
@@ -384,7 +384,7 @@
         </div>
       </div>
 
-      <!-- GOPAY -->
+      <!-- GOPAY --
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <svg width="40" height="40" viewBox="0 0 50 50"><rect width="50" height="50" rx="8" fill="#00A859"/><text x="25" y="32" fill="white" font-size="12" font-family="Arial" text-anchor="middle">GOPAY</text></svg>
@@ -398,7 +398,7 @@
       </div>
     </div>
 
-    <!-- 🧾 3. QRIS -->
+    <!-- 🧾 3. QRIS --
     <div class="bg-pink-50 p-5 rounded-xl shadow text-center">
       <h3 class="text-pink-600 font-semibold mb-4 text-lg">QRIS</h3>
       <img src="qris.png" alt="QRIS" class="mx-auto w-40 rounded-lg shadow">
@@ -446,8 +446,8 @@
         onchange="updateTujuanList()">
         <option value="">-- Pilih Jenis Pengiriman --</option>
         <option value="bank">Transfer Bank</option>
-        <option value="ewallet">E-Wallet</option>
-        <option value="qris">QRIS</option>
+        <!-- <option value="ewallet">E-Wallet</option>
+        <option value="qris">QRIS</option> -->
         <option value="hadiah">Kirim Hadiah</option>
       </select>
 
@@ -892,10 +892,10 @@ const tujuanOptions={
   bank: [
       "BANK BCA - 5610541790 a.n Mochamad Salim Ubaidillah",
       "BANK BNI - 1950594856 a.n Mochamad Salim Ubaidillah",
-      "BANK BRImo - 211801012372501 a.n Mochamad Salim Ubaidillah"
+      "BANK BRI - 630601024227533 a.n Wafrotul Atiyah"
     ],
-  ewallet:["Dana - 081234567890 a.n Tiyah Ubed","ShopeePay - 081234567890 a.n Tiyah Ubed","OVO - 081234567890 a.n Tiyah Ubed","GoPay - 081234567890 a.n Tiyah Ubed"],
-  qris:["QRIS - Scan QRIS di halaman Amplop Digital"],
+  // ewallet:["Dana - 081234567890 a.n Tiyah Ubed","ShopeePay - 081234567890 a.n Tiyah Ubed","OVO - 081234567890 a.n Tiyah Ubed","GoPay - 081234567890 a.n Tiyah Ubed"],
+  // qris:["QRIS - Scan QRIS di halaman Amplop Digital"],
   hadiah:[
       "Tiyah - Dusun Dondoman RT003 RW001 Desa Bojoasri Kec. Kalitengah KAB.LAMONGAN",
       "Ubed - Dusun Suruhan RT004 RW006 Desa Gembong Kec. Babat KAB.LAMONGAN"
@@ -961,4 +961,5 @@ function copyRekening(id, btn) {
 
 </body>
 </html>
+
 
